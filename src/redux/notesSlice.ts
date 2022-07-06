@@ -1,11 +1,18 @@
 import { notesApi } from './../api/api';
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
+import { NotesType } from '../types/types';
 
-export const getNotes = createAsyncThunk('notes/getNotes', async()=>{
-    const {data} = await notesApi.getNotes()
+export const fetchNotes = createAsyncThunk<NotesType[], void>('notes/fetchNotes', async()=>{  
+    const {data} = await notesApi.fetchNotes()
     return data
 })
 
+type NotesStateType = {
+    notes:{
+        items:NotesType[],
+        status: 'error' | 'loading' | 'loaded'
+    }
+}
 
 const initialState = {
     notes:{
@@ -14,29 +21,30 @@ const initialState = {
         ],
         status: 'loading'
     }
-}
+} as NotesStateType
 
 const notesSlice = createSlice({
     name: 'notes',
     initialState,
-    reducers: {
-        extraReducers:{
-            [getNotes.pending] : (state, action) =>{
-                state.notes.items = []
-                state.notes.status = 'loading'
-            },
-            [getNotes.fulfilled] : (state, action) =>{
-                state.notes.items = action.payload
-                state.notes.status = 'loaded'
-            },
-            [getNotes.rejected] : (state) =>{
-                state.notes.items = []
-                state.notes.status = 'error'
-            },
-        }
+    reducers: {},
+    extraReducers: (builder) =>{
+        builder.addCase(fetchNotes.pending, (state, action) => {
+            state.notes.items = []
+            state.notes.status = 'loading'
+        }),
+        builder.addCase(fetchNotes.fulfilled, (state, action) => { 
+            state.notes.items = action.payload
+            state.notes.status = 'loaded'
+        }),
+        builder.addCase(fetchNotes.rejected, (state, action) => {
+            state.notes.items = []
+            state.notes.status = 'error'
+        })
+      
     }
+    
 })
 
 
 
-export default notesSlice
+export default notesSlice.reducer

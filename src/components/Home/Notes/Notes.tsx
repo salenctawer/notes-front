@@ -1,14 +1,16 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getNotes } from "../../../redux/notesSlice";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
+import { fetchNotes } from "../../../redux/notesSlice";
 
-const Notes = () =>{
 
-    const dispatch = useDispatch()
-    const {notes} = useSelector(state => state.notes)
+
+const Notes: React.FC = () =>{
+
+    const dispatch = useAppDispatch()
+    const notes = useAppSelector(state => state.notes.notes.items)
 
     useEffect(()=>{
-        dispatch(getNotes())
+        dispatch(fetchNotes())
     }, [])
 
     return(<div>

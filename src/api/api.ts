@@ -5,7 +5,7 @@ const instance = axios.create({
 })
 
 export const notesApi ={
-    getNotes(){
+    fetchNotes(){
         return instance.get('/notes')
     }
 }
