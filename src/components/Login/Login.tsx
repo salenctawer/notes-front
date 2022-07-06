@@ -12,7 +12,7 @@ interface FormValues{
   email: string
 }
 
-const Login = () =>{
+const Login: React.FC = () =>{
     const {register, handleSubmit, setValue, formState: {errors}} = useForm<FormValues>()
 
     let redirect = useNavigate()

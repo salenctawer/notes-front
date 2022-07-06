@@ -30,7 +30,7 @@ const Header = () =>{
     return(<section className={s.header}>
         <Container maxWidth='lg'>
         <div className={s.container}>
-        <Typography>
+        <Typography onClick={()=>redirect('/')}>
             Создание заметок
         </Typography>
         {

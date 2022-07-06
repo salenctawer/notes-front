@@ -5,6 +5,8 @@ import { Route, Routes } from 'react-router-dom';
 import Login from './components/Login/Login';
 import Registration from './components/Registration/Registration';
 import Home from './components/Home/Home';
+import FullNote from './components/FullNote/FullNote';
+import AddNote from './components/AddNote/AddNote';
 
 
 function App() {
@@ -14,6 +16,8 @@ function App() {
       <Container maxWidth='lg'>
         <Routes>
           <Route path='/' element={<Home />}/>
+          <Route path='/note/:id' element={<FullNote />}/>
+          <Route path='/addnote' element={<AddNote />}/>
           <Route path='/login' element={<Login />}/>
           <Route path='/registration' element={<Registration />}/>
         </Routes>

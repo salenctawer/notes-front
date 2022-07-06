@@ -15,7 +15,7 @@ interface FormValues{
 }
 
 
-const Registration = () => {
+const Registration: React.FC = () => {
   const {
     register,
     handleSubmit,
