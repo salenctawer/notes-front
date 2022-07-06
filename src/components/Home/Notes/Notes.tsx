@@ -1,6 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { fetchNotes } from "../../../redux/notesSlice";
+import s from './Notes.module.scss'
 
 
 
@@ -11,10 +12,12 @@ const Notes: React.FC = () =>{
 
     useEffect(()=>{
         dispatch(fetchNotes())
-    }, [])
+    }, [dispatch])
 
-    return(<div>
-        Notes
+    return(<div className={s.notes}>
+        <div className={s.cards}>
+
+        </div>
     </div>)
 }
 
