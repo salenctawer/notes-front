@@ -46,7 +46,7 @@ const Header = () =>{
             ) : (
                 <div className={s.buttons}>
                     <Button variant="outlined" onClick={()=>redirect('/login')}>Войти</Button>
-                    <Button variant="contained" onClick={()=>redirect('/register')}>Создать аккаунт</Button>
+                    <Button variant="contained" onClick={()=>redirect('/registration')}>Создать аккаунт</Button>
                 </div>
             )
         }

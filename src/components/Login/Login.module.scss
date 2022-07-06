@@ -1,0 +1,25 @@
+.form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 16px;
+    width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    &__link{
+        text-decoration: none;
+        color: #0f7afc;
+        &:hover{
+            color: #cf0000;
+            border-bottom-color: rgba(208, 64, 0, 0.2);
+        }
+    }
+    &_error{
+        font-style: normal;
+        font-weight: normal;
+        font-size: 12px;
+        line-height: 15px;
+        margin-top: 5px;
+        color: red;
+    }
+}

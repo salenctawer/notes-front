@@ -1,8 +1,10 @@
 import React from 'react';
 import Header from './components/Header/Header';
-import Notes from './components/Notes/Notes';
-import UserInfo from './components/UserInfo/UserInfo';
 import Container from '@mui/material/Container';
+import { Route, Routes } from 'react-router-dom';
+import Login from './components/Login/Login';
+import Registration from './components/Registration/Registration';
+import Home from './components/Home/Home';
 
 
 function App() {
@@ -10,8 +12,11 @@ function App() {
     <div className="App">
       <Header />
       <Container maxWidth='lg'>
-        <UserInfo />
-        <Notes />
+        <Routes>
+          <Route path='/' element={<Home />}/>
+          <Route path='/login' element={<Login />}/>
+          <Route path='/registration' element={<Registration />}/>
+        </Routes>
       </Container>
     </div>
   );
