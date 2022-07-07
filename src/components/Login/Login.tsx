@@ -6,18 +6,21 @@ import { useForm } from 'react-hook-form';
 import { Button } from "@mui/material";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import s from './Login.module.scss'
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { fetchAuth } from "../../redux/authSlice";
+import { FormFetchAuthType } from "../../types/types";
 
-interface FormValues{
-  password: string,
-  email: string
-}
 
 const Login: React.FC = () =>{
-    const {register, handleSubmit, setValue, formState: {errors}} = useForm<FormValues>()
+    const {register, handleSubmit, setValue, formState: {errors}} = useForm<FormFetchAuthType>()
+
+    const dispatch = useAppDispatch()
 
     let redirect = useNavigate()
 
-    const onSubmit = (data: FormValues) =>{
+    const onSubmit = (data: FormFetchAuthType) =>{
+      dispatch(fetchAuth(data))
+      console.log(data)
       redirect('/')
     }
 
@@ -39,6 +42,8 @@ const Login: React.FC = () =>{
               type="text"
               fullWidth
               variant="standard"
+              error={Boolean(errors.email?.message)}
+              helperText={errors.email?.message}
             />
             <TextField
               {...register("password", {
@@ -54,6 +59,8 @@ const Login: React.FC = () =>{
               type="text"
               fullWidth
               variant="standard"
+              error={Boolean(errors.password?.message)}
+              helperText={errors.password?.message}
             />
           </DialogContent>
           <Button 

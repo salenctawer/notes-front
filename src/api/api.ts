@@ -11,7 +11,7 @@ export const notesApi ={
 }
 
 export const authApi ={
-    fetchUserData(params: any){   //типизировать
+    fetchAuth(params: any){   //типизировать
         return instance.post('/auth/login', params)
     }
 }

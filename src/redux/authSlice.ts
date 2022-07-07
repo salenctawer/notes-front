@@ -1,14 +1,15 @@
+import { FormFetchAuthType } from './../types/types';
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { authApi } from "../api/api";
-import { UserDataType } from "../types/types";
+import { AuthType } from "../types/types";
 
-export const fetchUserData = createAsyncThunk('/auth/fetchUserData', async (params)=>{
-    const {data} = await authApi.fetchUserData(params)
+export const fetchAuth = createAsyncThunk<AuthType, FormFetchAuthType>('/auth/fetchAuth', async (params)=>{
+    const {data} = await authApi.fetchAuth(params)
     return  data
 })
 
 type AuthStateType = {
-    data:UserDataType[] | null,
+    data:AuthType | null,
     status: 'error' | 'loading' | 'loaded'
 }
 
@@ -22,15 +23,15 @@ const authSlice = createSlice({
     initialState,
     reducers: {},
     extraReducers: (builder) =>{
-        builder.addCase(fetchUserData.pending, (state) => {
+        builder.addCase(fetchAuth.pending, (state) => {
             state.data = null;
             state.status = 'loading';
         })
-        builder.addCase(fetchUserData.fulfilled, (state, action) => { 
+        builder.addCase(fetchAuth.fulfilled, (state, action) => { 
             state.data = action.payload;
             state.status = 'loaded';
         })
-        builder.addCase(fetchUserData.rejected, (state) => {
+        builder.addCase(fetchAuth.rejected, (state) => {
             state.data = null;
             state.status = 'error';
         })

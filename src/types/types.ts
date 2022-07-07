@@ -11,9 +11,14 @@ export type NotesType = {
     text: string
 }
 
-export type UserDataType = {
+export type AuthType = {
     _id: String,
     fullName: String,
     email: String,
     avatarUrl: String,
+}
+
+export type FormFetchAuthType ={
+    email: String,
+    password: String
 }
