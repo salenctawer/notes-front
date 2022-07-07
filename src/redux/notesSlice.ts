@@ -4,7 +4,7 @@ import { NotesType } from '../types/types';
 
 export const fetchNotes = createAsyncThunk<NotesType[], void>(
     'notes/fetchNotes', 
-    async()=>{  
+    async()=>{ 
     const {data}= await notesApi.fetchNotes()
     return data
 })
@@ -30,17 +30,17 @@ const notesSlice = createSlice({
     initialState,
     reducers: {},
     extraReducers: (builder) =>{
-        builder.addCase(fetchNotes.pending, (state, action) => {
-            state.notes.items = []
-            state.notes.status = 'loading'
-        }),
+        builder.addCase(fetchNotes.pending, (state) => {
+            state.notes.items = [];
+            state.notes.status = 'loading';
+        })
         builder.addCase(fetchNotes.fulfilled, (state, action) => { 
-            state.notes.items = action.payload
-            state.notes.status = 'loaded'
-        }),
-        builder.addCase(fetchNotes.rejected, (state, action) => {
-            state.notes.items = []
-            state.notes.status = 'error'
+            state.notes.items = action.payload;
+            state.notes.status = 'loaded';
+        })
+        builder.addCase(fetchNotes.rejected, (state) => {
+            state.notes.items = [];
+            state.notes.status = 'error';
         })
       
     }

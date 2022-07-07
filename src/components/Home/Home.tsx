@@ -5,7 +5,7 @@ import UserInfo from "./UserInfo/UserInfo"
 
 const Home = () =>{
 
-    const isAuth = false
+    const isAuth = true
 
     return(<div>
         {
