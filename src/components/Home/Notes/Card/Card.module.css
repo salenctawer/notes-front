@@ -1,0 +1,111 @@
+.card {
+  padding: 20px;
+  width: 325px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  min-height: 200px;
+  border-radius: 10px;
+  -webkit-box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.25);
+          box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.25);
+  -webkit-transition: all 0.2s;
+  transition: all 0.2s;
+  background: radial-gradient(#76b2fe, #b69efe);
+}
+
+.card:hover {
+  -webkit-box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.4);
+          box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.4);
+  -webkit-transform: scale(1.01);
+          transform: scale(1.01);
+}
+
+.link {
+  position: relative;
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.link::after {
+  position: absolute;
+  top: 25px;
+  left: 0;
+  content: "";
+  width: 0%;
+  height: 3px;
+  background-color: rgba(255, 255, 255, 0.6);
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+}
+
+.link:hover::after {
+  width: 100%;
+}
+
+.delete {
+  cursor: pointer;
+}
+
+.titleDeleteContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.openFullContainer {
+  margin-top: auto;
+  margin-bottom: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  cursor: pointer;
+  position: relative;
+  text-decoration: none;
+}
+
+.openFullContainer::after {
+  position: absolute;
+  top: 25px;
+  left: 0;
+  content: "";
+  width: 0%;
+  height: 3px;
+  background-color: rgba(255, 255, 255, 0.6);
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+}
+
+.openFullContainer:hover::after {
+  width: 100%;
+}
+
+.box {
+  padding: 20px;
+  width: 400px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 500px;
+  border-radius: 10px;
+  -webkit-box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.25);
+          box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.25);
+  background: radial-gradient(#76b2fe, #b69efe);
+}
+/*# sourceMappingURL=Card.module.css.map */

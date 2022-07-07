@@ -10,3 +10,10 @@ export type NotesType = {
     deadline: string,
     text: string
 }
+
+export type UserDataType = {
+    _id: String,
+    fullName: String,
+    email: String,
+    avatarUrl: String,
+}

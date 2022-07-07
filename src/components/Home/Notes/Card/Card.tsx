@@ -5,6 +5,7 @@ import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import OpenInFullIcon from '@mui/icons-material/OpenInFull';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
+import EditIcon from '@mui/icons-material/Edit';
 
 
 interface CardProps {
@@ -64,14 +65,13 @@ const Card: React.FC<CardProps> = (props) =>{
     <Modal
         open={open}
         onClose={handleClose}
-        aria-labelledby="parent-modal-title"
-        aria-describedby="parent-modal-description"
       >
-        <Box sx={{ ...style, width: 400 }}>
-          <h2 id="parent-modal-title">Text in a modal</h2>
+        <Box sx={{ ...style, width: 400, height: 500 }} className={s.box}>
+        <EditIcon />
           <p id="parent-modal-description">
             {props.title}
           </p>
+          <p>{props.text}</p>
         </Box>
       </Modal>
     </div>

@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { fetchNotes } from "../../../redux/notesSlice";
 import s from './Notes.module.scss'
-import { styled } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Card from "./Card/Card";
+
 
 
 const Notes: React.FC = () =>{
