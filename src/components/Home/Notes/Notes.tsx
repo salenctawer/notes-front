@@ -15,7 +15,7 @@ const Notes: React.FC = () =>{
     const dispatch = useAppDispatch()
     const notes = useAppSelector(state => state.notes.notes.items)
     const status = useAppSelector(state => state.notes.notes.status)
-
+    console.log(notes)
     const isNotesLoading = status === 'loading'
 
     useEffect(()=>{
@@ -27,7 +27,7 @@ const Notes: React.FC = () =>{
         <Grid container rowSpacing={6} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
         {
             isNotesLoading? <div>Идет загрузка</div>: notes.map((obj, index)=>
-              <Grid item xs={4}>
+              <Grid item xs={4} key={index}>
                 <Card 
                     title={obj.title}
                     deadline={obj.deadline}
