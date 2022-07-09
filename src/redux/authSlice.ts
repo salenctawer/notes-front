@@ -8,6 +8,11 @@ export const fetchAuth = createAsyncThunk<AuthType, FormFetchAuthType>('/auth/fe
     return  data
 })
 
+export const fetchAuthMe = createAsyncThunk<any, void>('/auth/fetchAuthMe', async ()=>{  //типизировать
+    const {data} = await authApi.fetchAuthMe()
+    return  data
+})
+
 type AuthStateType = {
     data:AuthType | null,
     status: 'error' | 'loading' | 'loaded'
@@ -36,6 +41,18 @@ const authSlice = createSlice({
             state.status = 'loaded';
         })
         builder.addCase(fetchAuth.rejected, (state) => {
+            state.data = null;
+            state.status = 'error';
+        })
+        builder.addCase(fetchAuthMe.pending, (state) => {
+            state.data = null;
+            state.status = 'loading';
+        })
+        builder.addCase(fetchAuthMe.fulfilled, (state, action) => { 
+            state.data = action.payload;
+            state.status = 'loaded';
+        })
+        builder.addCase(fetchAuthMe.rejected, (state) => {
             state.data = null;
             state.status = 'error';
         })
