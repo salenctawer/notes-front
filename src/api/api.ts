@@ -15,3 +15,9 @@ export const authApi ={
         return instance.post('/auth/login', params)
     }
 }
+
+instance.interceptors.request.use((config: any) => {  //типизировать
+    config.headers.Authoziration = window.localStorage.getItem('token')
+
+    return config
+})

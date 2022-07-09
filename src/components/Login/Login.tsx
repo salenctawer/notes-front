@@ -19,17 +19,25 @@ const Login: React.FC = () =>{
 
     const dispatch = useAppDispatch()
 
-    const onSubmit = (data: FormFetchAuthType) =>{
-      dispatch(fetchAuth(data))
-      
+    const onSubmit = async (values: FormFetchAuthType) =>{
+      const data:any = await dispatch(fetchAuth(values))         //типизировать
+
+      if(!data.payload){
+        return alert('Не удалось авторизоваться')
+      }
+      if('token' in data.payload){
+        window.localStorage.setItem('token', data.payload.token)
+      } 
     }
+
+
 
     if(isAuth){
       return <Navigate to='/'/>
     }
 
     return(<div>
-        <form className={s.form} onSubmit={handleSubmit((data)=>onSubmit(data))}>
+        <form className={s.form} onSubmit={handleSubmit((values)=>onSubmit(values))}>
           <DialogTitle>Авторизация</DialogTitle>
           <DialogContent>
             <TextField

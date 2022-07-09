@@ -3,8 +3,8 @@ import React from "react";
 import { useState } from "react";
 import s from './Header.module.scss'
 import { useNavigate } from 'react-router-dom';
-import { useAppSelector } from "../../redux/hooks";
-import { selectAuth } from "../../redux/authSlice";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { logout, selectAuth } from "../../redux/authSlice";
 
 const style = {
     position: 'absolute',
@@ -23,9 +23,15 @@ const Header = () =>{
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
+    const dispatch = useAppDispatch()
+
     const isAuth = useAppSelector(selectAuth)
 
-    const onClickLogout = () => {};
+    const onClickLogout = () => {
+        if(window.confirm('Вы действительно хотите выйти?')){
+            dispatch(logout())
+        }
+    };
 
     const redirect = useNavigate()
 

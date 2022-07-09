@@ -1,11 +1,13 @@
 import { Typography } from "@mui/material"
+import { selectAuth } from "../../redux/authSlice"
+import { useAppSelector } from "../../redux/hooks"
 import Notes from "./Notes/Notes"
 import UserInfo from "./UserInfo/UserInfo"
 
 
 const Home = () =>{
 
-    const isAuth = true
+    const isAuth = useAppSelector(selectAuth)
 
     return(<div>
         {
