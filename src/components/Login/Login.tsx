@@ -7,21 +7,25 @@ import { Button } from "@mui/material";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import s from './Login.module.scss'
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { fetchAuth } from "../../redux/authSlice";
+import { fetchAuth, selectAuth } from "../../redux/authSlice";
 import { FormFetchAuthType } from "../../types/types";
 
 
 const Login: React.FC = () =>{
+    
+    const isAuth = useAppSelector(selectAuth)
+
     const {register, handleSubmit, setValue, formState: {errors}} = useForm<FormFetchAuthType>()
 
     const dispatch = useAppDispatch()
 
-    let redirect = useNavigate()
-
     const onSubmit = (data: FormFetchAuthType) =>{
       dispatch(fetchAuth(data))
-      console.log(data)
-      redirect('/')
+      
+    }
+
+    if(isAuth){
+      return <Navigate to='/'/>
     }
 
     return(<div>

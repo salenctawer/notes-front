@@ -13,7 +13,6 @@ const Notes: React.FC = () =>{
     const dispatch = useAppDispatch()
     const notes = useAppSelector(state => state.notes.notes.items)
     const status = useAppSelector(state => state.notes.notes.status)
-    console.log(notes)
     const isNotesLoading = status === 'loading'
 
     useEffect(()=>{

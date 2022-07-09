@@ -1,4 +1,4 @@
-import { FormFetchAuthType } from './../types/types';
+import { FormFetchAuthType, RootState } from './../types/types';
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { authApi } from "../api/api";
 import { AuthType } from "../types/types";
@@ -39,4 +39,9 @@ const authSlice = createSlice({
     }
     
 })
+
+export const selectAuth = (state: any) => {         //типизировать
+    return Boolean(state.auth.data)
+}
+
 export default authSlice.reducer

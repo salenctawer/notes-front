@@ -3,6 +3,8 @@ import React from "react";
 import { useState } from "react";
 import s from './Header.module.scss'
 import { useNavigate } from 'react-router-dom';
+import { useAppSelector } from "../../redux/hooks";
+import { selectAuth } from "../../redux/authSlice";
 
 const style = {
     position: 'absolute',
@@ -21,7 +23,7 @@ const Header = () =>{
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
-    const isAuth = false
+    const isAuth = useAppSelector(selectAuth)
 
     const onClickLogout = () => {};
 
