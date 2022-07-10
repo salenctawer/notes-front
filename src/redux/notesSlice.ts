@@ -2,12 +2,14 @@ import { notesApi } from './../api/api';
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { NotesType } from '../types/types';
 
-export const fetchNotes = createAsyncThunk<NotesType[], void>(
-    'notes/fetchNotes', 
-    async()=>{ 
-    const {data}= await notesApi.fetchNotes()
+export const fetchUserNotes = createAsyncThunk<NotesType[], String | undefined>(
+    'notes/fetchUserNotes', 
+    async(id)=>{ 
+    const {data}= await notesApi.fetchUserNotes(id)
     return data
 })
+
+
 
 type NotesStateType = {
     notes:{
@@ -30,15 +32,15 @@ const notesSlice = createSlice({
     initialState,
     reducers: {},
     extraReducers: (builder) =>{
-        builder.addCase(fetchNotes.pending, (state) => {
+        builder.addCase(fetchUserNotes.pending, (state) => {
             state.notes.items = [];
             state.notes.status = 'loading';
         })
-        builder.addCase(fetchNotes.fulfilled, (state, action) => { 
+        builder.addCase(fetchUserNotes.fulfilled, (state, action) => { 
             state.notes.items = action.payload;
             state.notes.status = 'loaded';
         })
-        builder.addCase(fetchNotes.rejected, (state) => {
+        builder.addCase(fetchUserNotes.rejected, (state) => {
             state.notes.items = [];
             state.notes.status = 'error';
         })

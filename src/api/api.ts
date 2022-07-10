@@ -8,6 +8,9 @@ const instance = axios.create({
 export const notesApi ={
     fetchNotes(){
         return instance.get('/notes')
+    },
+    fetchUserNotes(id: String | undefined){
+        return instance.get(`notes/user/${id}`)
     }
 }
 
