@@ -18,6 +18,14 @@ export type AuthType = {
     avatarUrl: String,
 }
 
+export type FormFetchRegisterType ={
+    email: String,
+    fullName: String,
+    avatarUrl?: any,  //типизировать
+    password: String,
+    confirmPassword?: String
+}
+
 export type FormFetchAuthType ={
     email: String,
     password: String

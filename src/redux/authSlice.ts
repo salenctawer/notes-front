@@ -1,4 +1,4 @@
-import { FormFetchAuthType, RootState } from './../types/types';
+import { FormFetchAuthType, FormFetchRegisterType, RootState } from './../types/types';
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { authApi } from "../api/api";
 import { AuthType } from "../types/types";
@@ -11,6 +11,11 @@ export const fetchAuth = createAsyncThunk<AuthType, FormFetchAuthType>('/auth/fe
 export const fetchAuthMe = createAsyncThunk<any, void>('/auth/fetchAuthMe', async ()=>{  //типизировать
     const {data} = await authApi.fetchAuthMe()
     return  data
+})
+
+export const fetchRegister = createAsyncThunk<any, FormFetchRegisterType>('/reg/fetchRegister', async(params)=>{
+    const {data} = await authApi.fetchRegister(params)
+    return data
 })
 
 type AuthStateType = {
@@ -49,6 +54,18 @@ const authSlice = createSlice({
             state.status = 'loading';
         })
         builder.addCase(fetchAuthMe.fulfilled, (state, action) => { 
+            state.data = action.payload;
+            state.status = 'loaded';
+        })
+        builder.addCase(fetchRegister.rejected, (state) => {
+            state.data = null;
+            state.status = 'error';
+        })
+        builder.addCase(fetchRegister.pending, (state) => {
+            state.data = null;
+            state.status = 'loading';
+        })
+        builder.addCase(fetchRegister.fulfilled, (state, action) => { 
             state.data = action.payload;
             state.status = 'loaded';
         })

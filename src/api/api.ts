@@ -1,4 +1,5 @@
 import axios from "axios";
+import { FormFetchRegisterType } from "../types/types";
 
 const instance = axios.create({
     baseURL: 'http://localhost:4444'
@@ -16,6 +17,9 @@ export const authApi ={
     },
     fetchAuthMe(){
         return instance.get('/auth/me')
+    },
+    fetchRegister(params: FormFetchRegisterType){
+        return instance.post('/auth/register', params)
     }
 }
 
