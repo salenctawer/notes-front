@@ -6,6 +6,8 @@ import OpenInFullIcon from '@mui/icons-material/OpenInFull';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import EditIcon from '@mui/icons-material/Edit';
+import { useAppDispatch } from "../../../../redux/hooks";
+import { removeNote } from "../../../../redux/notesSlice";
 
 
 interface CardProps {
@@ -31,12 +33,18 @@ const style = {
 
 const Card: React.FC<CardProps> = (props) =>{
     const [open, setOpen] = React.useState(false);
+
+    const dispatch = useAppDispatch()
+
     const handleOpen = () => {
         setOpen(true);
     };
     const handleClose = () => {
         setOpen(false);
     };
+    const removeCardClick = () =>{
+        dispatch(removeNote(props._id))
+    }
     return(
         <div>
             <div className={s.card}>
@@ -45,7 +53,7 @@ const Card: React.FC<CardProps> = (props) =>{
                 <Typography>{props.title}</Typography>
             </div>
             <div className={s.delete}>
-            <DeleteOutlineIcon/>
+            <DeleteOutlineIcon onClick={removeCardClick}/>
             </div>
         </div>
         <div>

@@ -14,6 +14,10 @@ export const addNote = createAsyncThunk<NotesType, AddNoteType>('notes/addNote',
     return data
 })
 
+export const removeNote = createAsyncThunk<void, String>('notes/removeNote', async(params: String)=>{
+    notesApi.removeNote(params)
+})
+
 
 
 type NotesStateType = {
@@ -37,6 +41,7 @@ const notesSlice = createSlice({
     initialState,
     reducers: {},
     extraReducers: (builder) =>{
+        //Получение заметок
         builder.addCase(fetchUserNotes.pending, (state) => {
             state.notes.items = [];
             state.notes.status = 'loading';
@@ -49,7 +54,10 @@ const notesSlice = createSlice({
             state.notes.items = [];
             state.notes.status = 'error';
         })
-      
+        //Удаление заметки
+        builder.addCase(removeNote.pending, (state, action) => {
+            state.notes.items = state.notes.items.filter(obj => obj._id !== action.meta.arg)
+        })
     }
     
 })

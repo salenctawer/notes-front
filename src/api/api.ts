@@ -14,6 +14,9 @@ export const notesApi ={
     },
     addNote(params: AddNoteType){
         return instance.post(`notes`, params)
+    },
+    removeNote(id: String){
+        return instance.delete(`notes/${id}`)
     }
 }
 
