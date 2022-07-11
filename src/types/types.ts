@@ -35,5 +35,5 @@ export type AddNoteType = {
     title: String,
     deadline: String,
     text: String,
-    important: String
+    important: String,
 }

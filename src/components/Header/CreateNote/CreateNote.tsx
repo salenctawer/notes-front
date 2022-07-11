@@ -7,6 +7,8 @@ import MenuItem from '@mui/material/MenuItem';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
+import { useAppDispatch } from "../../../redux/hooks";
+import { addNote } from "../../../redux/notesSlice";
 
 
 const selectItems = [
@@ -41,6 +43,8 @@ const CreatePost = () =>{
 
     const [date, setDate] = useState<Date | null>(null);
 
+    const dispatch = useAppDispatch()
+
 
 
     const getFinalDate = () =>{           //переделать
@@ -63,6 +67,7 @@ const CreatePost = () =>{
     const onSubmit = (values:AddNoteType ) =>{
         let date =  getFinalDate()
         values.deadline = date
+        dispatch(addNote(values))
         console.log(values)
         
     }
@@ -119,14 +124,16 @@ const CreatePost = () =>{
                 ))}
             </TextField>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <DesktopDatePicker
-                label="Дедлайн"
-                value={date}
-                onChange={(newValue) => {
-                    setDate(newValue);
-                }}
-                renderInput={(params) => <TextField {...params}/>}
-            />
+                <DesktopDatePicker
+                    label="Дедлайн"
+                    value={date}
+                    inputFormat = 'dd/MM/yyyy'
+                    mask="__/__/____"
+                    onChange={(newValue) => {
+                        setDate(newValue);
+                    }}
+                    renderInput={(params) => <TextField {...params} />}
+                />
             </LocalizationProvider>
              <Button 
                 variant="contained"
