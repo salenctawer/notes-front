@@ -1,5 +1,5 @@
 import axios from "axios";
-import { FormFetchRegisterType, AddNoteType } from "../types/types";
+import { FormFetchRegisterType, AddNoteType, NotesType } from "../types/types";
 
 const instance = axios.create({
     baseURL: 'http://localhost:4444'
@@ -17,6 +17,9 @@ export const notesApi ={
     },
     removeNote(id: String){
         return instance.delete(`notes/${id}`)
+    },
+    editNote(params:NotesType){
+        return instance.patch(`notes/${params._id}`, params)
     }
 }
 

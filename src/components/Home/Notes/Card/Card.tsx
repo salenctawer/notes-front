@@ -1,6 +1,6 @@
 import React from "react"
 import s from './Card.module.scss'
-import { Typography } from "@mui/material";
+import { Button, TextField, Typography } from "@mui/material";
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import OpenInFullIcon from '@mui/icons-material/OpenInFull';
 import Modal from '@mui/material/Modal';
@@ -8,28 +8,16 @@ import Box from '@mui/material/Box';
 import EditIcon from '@mui/icons-material/Edit';
 import { useAppDispatch } from "../../../../redux/hooks";
 import { removeNote } from "../../../../redux/notesSlice";
+import OpenFull from "./EditModal/OpenFull";
 
 
-interface CardProps {
+export interface CardProps {
     title: String,
     _id: String,
     text: String,
     deadline: String,
     important: String
 }
-
-const style = {
-    position: 'absolute' as 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    bgcolor: 'background.paper',
-    boxShadow: 24,
-    pt: 2,
-    px: 4,
-    pb: 3,
-  };
 
 const Card: React.FC<CardProps> = (props) =>{
     const [open, setOpen] = React.useState(false);
@@ -44,6 +32,9 @@ const Card: React.FC<CardProps> = (props) =>{
     };
     const removeCardClick = () =>{
         dispatch(removeNote(props._id))
+    }
+    const editCardClick = () =>{
+
     }
     return(
         <div>
@@ -73,13 +64,7 @@ const Card: React.FC<CardProps> = (props) =>{
         open={open}
         onClose={handleClose}
       >
-        <Box sx={style } className={s.box}>
-        <EditIcon />
-          <p id="parent-modal-description">
-            {props.title}
-          </p>
-          <p>{props.text}</p>
-        </Box>
+        <OpenFull {...props}/>
       </Modal>
     </div>
     )

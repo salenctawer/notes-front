@@ -37,3 +37,4 @@ export type AddNoteType = {
     text: String,
     important: String,
 }
+

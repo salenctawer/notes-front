@@ -18,6 +18,11 @@ export const removeNote = createAsyncThunk<void, String>('notes/removeNote', asy
     notesApi.removeNote(params)
 })
 
+export const editNote = createAsyncThunk<void, NotesType >('notes/editNote', async(params: NotesType)=>{
+    const {data} = await notesApi.editNote(params)
+    return data
+})
+
 
 
 type NotesStateType = {

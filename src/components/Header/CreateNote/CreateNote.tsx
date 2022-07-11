@@ -11,7 +11,7 @@ import { useAppDispatch } from "../../../redux/hooks";
 import { addNote } from "../../../redux/notesSlice";
 
 
-const selectItems = [
+export const selectItems = [
     {
         value: 'Очень важно'
     },
@@ -68,7 +68,6 @@ const CreatePost = () =>{
         let date =  getFinalDate()
         values.deadline = date
         dispatch(addNote(values))
-        console.log(values)
         
     }
 
