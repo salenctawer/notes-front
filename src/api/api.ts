@@ -18,7 +18,7 @@ export const notesApi ={
     removeNote(id: String){
         return instance.delete(`notes/${id}`)
     },
-    editNote(params:NotesType){
+    editNote(params:AddNoteType){
         return instance.patch(`notes/${params._id}`, params)
     }
 }

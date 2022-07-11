@@ -32,6 +32,7 @@ export type FormFetchAuthType ={
 }
 
 export type AddNoteType = {
+    _id?: String
     title: String,
     deadline: String,
     text: String,

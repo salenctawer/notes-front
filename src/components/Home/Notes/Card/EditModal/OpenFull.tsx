@@ -7,6 +7,8 @@ import { CardProps } from "../Card";
 import { useForm } from "react-hook-form";
 import { AddNoteType } from "../../../../../types/types";
 import { selectItems } from "../../../../Header/CreateNote/CreateNote";
+import { useAppDispatch } from "../../../../../redux/hooks";
+import { editNote } from "../../../../../redux/notesSlice";
 
 const style ={
     position: 'absolute' as 'absolute',
@@ -26,6 +28,8 @@ const OpenFull: React.FC<CardProps> = (props) =>{
     
     const [disabled, setDisabled] = useState(true)
 
+    const dispatch = useAppDispatch()
+
     const {register, handleSubmit, setValue, formState: {errors}} = useForm<AddNoteType>({
         defaultValues:{
             title: props.title,
@@ -39,7 +43,9 @@ const OpenFull: React.FC<CardProps> = (props) =>{
     }
 
     const onSubmit = (values: AddNoteType) =>{
-        console.log(values)
+        values._id = props._id   
+        values.deadline = "24.12.2022"   //доделать
+        dispatch(editNote(values))
     }
     return(<div>
         <Box sx={style } className={s.box}>
@@ -99,7 +105,15 @@ const OpenFull: React.FC<CardProps> = (props) =>{
                     </MenuItem>
                 ))}
             </TextField>
-            <Button type='submit'/>
+            <Button variant="contained"
+                disabled={disabled}
+                type='submit'
+                sx={{
+                marginTop: 2
+                }}
+                >
+                    Изменить
+            </Button>
           </form>
         </Box>
     </div>)
