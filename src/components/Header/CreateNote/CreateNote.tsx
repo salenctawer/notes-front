@@ -6,7 +6,7 @@ import { AddNoteType } from "../../../types/types";
 import MenuItem from '@mui/material/MenuItem';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 
 
 const selectItems = [
@@ -39,10 +39,32 @@ const CreatePost = () =>{
 
     const {register, handleSubmit, setValue, formState: {errors}} = useForm<AddNoteType>()
 
-    const [data, setData] = useState<Date | null>(null);
+    const [date, setDate] = useState<Date | null>(null);
+
+
+
+    const getFinalDate = () =>{           //переделать
+        let day: any = date?.getDate()            
+        let year: any = date?.getFullYear()
+        let month:any = date? date.getMonth() + 1 : 0
+
+        if(day <= 9){
+            day = `0${day}`
+        }
+        if(month <= 9){
+            month = `0${month}`
+        }
+
+        let finalDate = `${day}.${month}.${year}`
+        return finalDate 
+    }
+
 
     const onSubmit = (values:AddNoteType ) =>{
+        let date =  getFinalDate()
+        values.deadline = date
         console.log(values)
+        
     }
 
     return(<Box sx={style}>
@@ -97,14 +119,14 @@ const CreatePost = () =>{
                 ))}
             </TextField>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
-                <DatePicker
-                    label="Basic example"
-                    value={data}
-                    onChange={(newValue) => {
-                    setData(newValue);
-                    }}
-                    renderInput={(params) => <TextField {...params} />}
-                />
+            <DesktopDatePicker
+                label="Дедлайн"
+                value={date}
+                onChange={(newValue) => {
+                    setDate(newValue);
+                }}
+                renderInput={(params) => <TextField {...params}/>}
+            />
             </LocalizationProvider>
              <Button 
                 variant="contained"
@@ -115,6 +137,7 @@ const CreatePost = () =>{
             >
               Готово
           </Button>
+
         </form>
     </Box>)
 }
