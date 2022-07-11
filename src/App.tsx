@@ -5,7 +5,6 @@ import { Route, Routes } from 'react-router-dom';
 import Login from './components/Login/Login';
 import Registration from './components/Registration/Registration';
 import Home from './components/Home/Home';
-import AddNote from './components/AddNote/AddNote';
 import { useAppDispatch, useAppSelector } from './redux/hooks';
 import { fetchAuthMe, selectAuth } from './redux/authSlice';
 
@@ -27,7 +26,6 @@ function App() {
       <Container maxWidth='lg'>
         <Routes>
           <Route path='/' element={<Home />}/>
-          <Route path='/addnote' element={<AddNote />}/>
           <Route path='/login' element={<Login />}/>
           <Route path='/registration' element={<Registration />}/>
         </Routes>

@@ -13,7 +13,7 @@ export const fetchAuthMe = createAsyncThunk<any, void>('/auth/fetchAuthMe', asyn
     return  data
 })
 
-export const fetchRegister = createAsyncThunk<any, FormFetchRegisterType>('/reg/fetchRegister', async(params)=>{
+export const fetchRegister = createAsyncThunk<any, FormFetchRegisterType>('/reg/fetchRegister', async(params)=>{ //типизировать
     const {data} = await authApi.fetchRegister(params)
     return data
 })

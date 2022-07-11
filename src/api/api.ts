@@ -9,7 +9,7 @@ export const notesApi ={
     fetchNotes(){
         return instance.get('/notes')
     },
-    fetchUserNotes(id: String | undefined){
+    fetchUserNotes(id?: String){
         return instance.get(`notes/user/${id}`)
     }
 }
