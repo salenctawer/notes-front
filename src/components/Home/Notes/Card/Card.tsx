@@ -23,7 +23,6 @@ const style = {
     transform: 'translate(-50%, -50%)',
     width: 400,
     bgcolor: 'background.paper',
-    border: '2px solid #000',
     boxShadow: 24,
     pt: 2,
     px: 4,
@@ -66,7 +65,7 @@ const Card: React.FC<CardProps> = (props) =>{
         open={open}
         onClose={handleClose}
       >
-        <Box sx={{ ...style, width: 400, height: 500 }} className={s.box}>
+        <Box sx={style } className={s.box}>
         <EditIcon />
           <p id="parent-modal-description">
             {props.title}

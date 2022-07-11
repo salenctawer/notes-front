@@ -1,5 +1,5 @@
 import axios from "axios";
-import { FormFetchRegisterType } from "../types/types";
+import { FormFetchRegisterType, AddNoteType } from "../types/types";
 
 const instance = axios.create({
     baseURL: 'http://localhost:4444'
@@ -11,6 +11,9 @@ export const notesApi ={
     },
     fetchUserNotes(id?: String){
         return instance.get(`notes/user/${id}`)
+    },
+    addNote(params: AddNoteType){
+        return instance.post(`notes`, params)
     }
 }
 

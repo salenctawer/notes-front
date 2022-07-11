@@ -30,3 +30,10 @@ export type FormFetchAuthType ={
     email: String,
     password: String
 }
+
+export type AddNoteType = {
+    title: String,
+    deadline: String,
+    text: String,
+    important: String
+}

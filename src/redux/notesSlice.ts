@@ -1,11 +1,16 @@
 import { notesApi } from './../api/api';
-import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-import { NotesType } from '../types/types';
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { NotesType, AddNoteType } from '../types/types';
 
 export const fetchUserNotes = createAsyncThunk<NotesType[], String | undefined>(
     'notes/fetchUserNotes', 
     async(id)=>{ 
     const {data}= await notesApi.fetchUserNotes(id)
+    return data
+})
+
+export const addNote = createAsyncThunk<NotesType, AddNoteType>('notes/addNote', async(params: AddNoteType)=>{
+    const {data} = await notesApi.addNote(params)
     return data
 })
 
