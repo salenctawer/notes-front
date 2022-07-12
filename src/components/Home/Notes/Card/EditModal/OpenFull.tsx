@@ -12,6 +12,7 @@ import { editNote } from "../../../../../redux/notesSlice";
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
+import dateFormat from "dateformat";
 
 const style ={
     position: 'absolute' as 'absolute',
@@ -19,31 +20,40 @@ const style ={
     left: '50%',
     transform: 'translate(-50%, -50%)',
     width: 400,
+    height: 400,
     bgcolor: 'background.paper',
     boxShadow: 24,
     pt: 2,
     px: 4,
     pb: 3,
+    borderRadius: '10px',
+    background: 'radial-gradient(#76b2fe, #b69efe)'
 }
 
+ interface OpenFullCardType extends CardProps {
+    handleClose: () => void
+ }
 
-const OpenFull: React.FC<CardProps> = (props) =>{
+
+const OpenFull: React.FC<OpenFullCardType> = (props) =>{
     const dispatch = useAppDispatch()
     
     const [disabled, setDisabled] = useState(true)
     
     let mydate:any = props.deadline;
     mydate = new Date(mydate.replace(/(\d+).(\d+).(\d+)/, '$3/$2/$1'));
-    const [date, setDate] = useState<Date | String | null>(mydate.toDateString());
+    const [date, setDate] = useState<any>(mydate.toDateString());  //типизировать
 
+    let selectDefaultItem = selectItems.find(item => item.value == props.important)
 
 
     const {register, handleSubmit, setValue, formState: {errors}} = useForm<AddNoteType>({
         defaultValues:{
             title: props.title,
-            text: props.text,
+            text: props.text
         }
     })
+
 
 
 
@@ -53,15 +63,18 @@ const OpenFull: React.FC<CardProps> = (props) =>{
 
     const onSubmit = (values: AddNoteType) =>{
         values._id = props._id   
-        values.deadline = "24.12.2022"   //доделать
+        let finalDate = dateFormat(date, 'dd.mm.yyyy')
+        values.deadline = finalDate
+        console.log(values)
         dispatch(editNote(values))
+        props.handleClose()
     }
     return(<div>
-        <Box sx={style } className={s.box}>
+        <Box sx={style }>
         <div className={s.edit}> 
             <EditIcon onClick={editCardClick}/>
         </div>
-          <form onSubmit={handleSubmit((values)=>onSubmit(values))}>
+          <form onSubmit={handleSubmit((values)=>onSubmit(values))} className={s.form}>
             <TextField 
                  {...register("title", {
                     required: {
@@ -105,9 +118,9 @@ const OpenFull: React.FC<CardProps> = (props) =>{
                 id="important"
                 select
                 label="Важность"
-                style={{width: 125}}
+                style={{width: 125, marginBottom:20, marginTop: 20}}
                 disabled={disabled}
-                defaultValue={selectItems.filter(item => item.value == props.important)}
+                defaultValue={selectDefaultItem?.value}
                 >
                 {selectItems.map((option) => (
                     <MenuItem key={option.value} value={option.value}>
@@ -117,7 +130,7 @@ const OpenFull: React.FC<CardProps> = (props) =>{
             </TextField>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <DesktopDatePicker
-
+                    disabled={disabled}
                     label="Дедлайн"
                     value={date}
                     inputFormat = 'dd/MM/yyyy'
@@ -132,7 +145,10 @@ const OpenFull: React.FC<CardProps> = (props) =>{
                 disabled={disabled}
                 type='submit'
                 sx={{
-                marginTop: 2
+                marginTop: 5,
+                marginLeft: 'auto',
+                marginRight: 'auto',
+                width: 200
                 }}
                 >
                     Изменить

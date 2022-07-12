@@ -9,6 +9,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import { useAppDispatch } from "../../../../redux/hooks";
 import { removeNote } from "../../../../redux/notesSlice";
 import OpenFull from "./EditModal/OpenFull";
+import '@fontsource/roboto/400.css';
 
 
 export interface CardProps {
@@ -17,6 +18,11 @@ export interface CardProps {
     text: String,
     deadline: String,
     important: String
+}
+
+const styleText = {
+    color: "#FFFFFF",
+    fontFamily: 'roboto'
 }
 
 const Card: React.FC<CardProps> = (props) =>{
@@ -37,21 +43,21 @@ const Card: React.FC<CardProps> = (props) =>{
 
     }
     return(
-        <div>
+        <div >
             <div className={s.card}>
         <div className={s.titleDeleteContainer}>
             <div className={s.title}>
-                <Typography>{props.title}</Typography>
+                <Typography style={styleText}>{props.title}</Typography>
             </div>
             <div className={s.delete}>
             <DeleteOutlineIcon onClick={removeCardClick}/>
             </div>
         </div>
         <div>
-            <Typography>{props.important}</Typography>
+            <Typography style={styleText}>{props.important}</Typography>
         </div>
         <div>
-            <Typography>{props.deadline}</Typography>
+            <Typography style={styleText}>{props.deadline}</Typography>
         </div>
         <div className={s.openFullContainer} onClick={handleOpen}>
             <Typography style={{marginRight: '10px'}}>
@@ -64,7 +70,7 @@ const Card: React.FC<CardProps> = (props) =>{
         open={open}
         onClose={handleClose}
       >
-        <OpenFull {...props}/>
+        <OpenFull {...props} handleClose={handleClose}/>
       </Modal>
     </div>
     )
