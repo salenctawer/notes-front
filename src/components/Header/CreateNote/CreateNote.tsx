@@ -9,19 +9,24 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import { useAppDispatch } from "../../../redux/hooks";
 import { addNote } from "../../../redux/notesSlice";
+import dateFormat, { masks } from "dateformat";
 
 
 export const selectItems = [
     {
+        key: 1,
         value: 'Очень важно'
     },
     {
+        key: 2,
         value:'Важно'
     },
     {
+        key: 3,
         value:'Средне'
     },
     {
+        key: 4,
         value:'Не очень важно'
     },
 ]
@@ -41,32 +46,16 @@ const CreatePost = () =>{
 
     const {register, handleSubmit, setValue, formState: {errors}} = useForm<AddNoteType>()
 
-    const [date, setDate] = useState<Date | null>(null);
+
+    const [date, setDate] = useState<any>(dateFormat(new Date()));   //типизировать
 
     const dispatch = useAppDispatch()
-
-
-
-    const getFinalDate = () =>{           //переделать
-        let day: any = date?.getDate()            
-        let year: any = date?.getFullYear()
-        let month:any = date? date.getMonth() + 1 : 0
-
-        if(day <= 9){
-            day = `0${day}`
-        }
-        if(month <= 9){
-            month = `0${month}`
-        }
-
-        let finalDate = `${day}.${month}.${year}`
-        return finalDate 
-    }
-
+    
+    
 
     const onSubmit = (values:AddNoteType ) =>{
-        let date =  getFinalDate()
-        values.deadline = date
+        let finalDate = dateFormat(date, 'dd.mm.yyyy')
+        values.deadline = finalDate
         dispatch(addNote(values))
         
     }
@@ -117,7 +106,7 @@ const CreatePost = () =>{
                 style={{width: 125}}
                 >
                 {selectItems.map((option) => (
-                    <MenuItem key={option.value} value={option.value}>
+                    <MenuItem key={option.key} value={option.value}>
                     {option.value}
                     </MenuItem>
                 ))}
@@ -129,7 +118,7 @@ const CreatePost = () =>{
                     inputFormat = 'dd/MM/yyyy'
                     mask="__/__/____"
                     onChange={(newValue) => {
-                        setDate(newValue);
+                        setDate(newValue)
                     }}
                     renderInput={(params) => <TextField {...params} />}
                 />

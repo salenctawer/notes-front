@@ -9,6 +9,9 @@ import { AddNoteType } from "../../../../../types/types";
 import { selectItems } from "../../../../Header/CreateNote/CreateNote";
 import { useAppDispatch } from "../../../../../redux/hooks";
 import { editNote } from "../../../../../redux/notesSlice";
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 
 const style ={
     position: 'absolute' as 'absolute',
@@ -25,18 +28,24 @@ const style ={
 
 
 const OpenFull: React.FC<CardProps> = (props) =>{
+    const dispatch = useAppDispatch()
     
     const [disabled, setDisabled] = useState(true)
+    
+    let mydate:any = props.deadline;
+    mydate = new Date(mydate.replace(/(\d+).(\d+).(\d+)/, '$3/$2/$1'));
+    const [date, setDate] = useState<Date | String | null>(mydate.toDateString());
 
-    const dispatch = useAppDispatch()
+
 
     const {register, handleSubmit, setValue, formState: {errors}} = useForm<AddNoteType>({
         defaultValues:{
             title: props.title,
             text: props.text,
-            important: props.important,
         }
     })
+
+
 
     const editCardClick = () =>{
         setDisabled(false)
@@ -98,6 +107,7 @@ const OpenFull: React.FC<CardProps> = (props) =>{
                 label="Важность"
                 style={{width: 125}}
                 disabled={disabled}
+                defaultValue={selectItems.filter(item => item.value == props.important)}
                 >
                 {selectItems.map((option) => (
                     <MenuItem key={option.value} value={option.value}>
@@ -105,6 +115,19 @@ const OpenFull: React.FC<CardProps> = (props) =>{
                     </MenuItem>
                 ))}
             </TextField>
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
+                <DesktopDatePicker
+
+                    label="Дедлайн"
+                    value={date}
+                    inputFormat = 'dd/MM/yyyy'
+                    mask="__/__/____"
+                    onChange={(newValue) => {
+                        setDate(newValue)
+                    }}
+                    renderInput={(params) => <TextField {...params}/>}
+                />
+            </LocalizationProvider>
             <Button variant="contained"
                 disabled={disabled}
                 type='submit'
